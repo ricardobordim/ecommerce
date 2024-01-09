@@ -109,7 +109,7 @@ class Category extends Model
 
     }
 
-    public function getProductsPage($page = 1, $itemsPerPage = 8)
+    public function getProductsPage($page = 1, $itemsPerPage = 3)
     {
 
         $start = ($page - 1) * $itemsPerPage;
@@ -128,7 +128,7 @@ class Category extends Model
         ]);
 
         $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
-
+        //ceil converte arredondando para cima.
         return [
             'data' => Product::checkList($results),
             'total' => (int) $resultTotal[0]["nrtotal"],
