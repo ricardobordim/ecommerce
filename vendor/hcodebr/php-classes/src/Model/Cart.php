@@ -209,7 +209,7 @@ class Cart extends Model
             if ($totals['vllength'] < 16) {
                 $totals['vllength'] = 16;
             }
-
+/*
             $qs = http_build_query([
                 'nCdEmpresa' => '',
                 'sDsSenha' => '',
@@ -227,7 +227,9 @@ class Cart extends Model
                 'sCdAvisoRecebimento' => 'S',
             ]);
 
-            $xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?" . $qs);
+            
+
+            $xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx/CalcPrecoPrazo?" . $qs);
 
             $result = $xml->Servicos->cServico;
 
@@ -244,10 +246,17 @@ class Cart extends Model
             $this->setnrdays($result->PrazoEntrega);
             $this->setvlfreight(Cart::formatValueToDecimal($result->Valor));
             $this->setdeszipcode($nrzipcode);
-
+*/
+            $v_prazoEntrega = 1;
+            $v_valor = '15,00';
+            $v_zipcode= '99050130';
+            $this->setnrdays($v_prazoEntrega);
+            $this->setvlfreight(Cart::formatValueToDecimal($v_valor));
+            $this->setdeszipcode($v_zipcode);
+                        
             $this->save();
 
-            return $result;
+//            return $result;
 
         } else {
 
