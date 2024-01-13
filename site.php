@@ -4,6 +4,8 @@ use Hcode\Page;
 use Hcode\Model\Product;
 use Hcode\Model\Category;
 use Hcode\Model\Cart;
+use \Hcode\Model\Address;
+
 
 $app->get('/', function () {
 
@@ -63,9 +65,12 @@ $app->get("/cart",function() {
 
 	$cart = Cart::getFromSession();
    	$page = new Page();
+	//var_dump($cart->getValues());
+	//exit;
    	$page->setTpl("cart",[
 		'cart'=>$cart->getValues(),
-		'products'=>$cart->getProducts()
+		'products'=>$cart->getProducts(),
+		'error'=>Cart::getMsgError()
 	]);
 });
 
@@ -117,6 +122,22 @@ $app->post("/cart/freight", function () {
 
 });
 
+$app->get("/checkout", function () {
+
+	$cart = Cart::getFromSession();
+	$address = new Address();
+
+    $page = new Page();
+	$page->setTpl("checkout",[
+		'cart'=>$cart->getValues(),
+		'address'=>$address->getValues()
+	]);
+
+
+    header("Location: /cart");
+    exit;
+
+});
 
 
 ?>

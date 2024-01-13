@@ -227,9 +227,7 @@ class Cart extends Model
                 'sCdAvisoRecebimento' => 'S',
             ]);
 
-            
-
-            $xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx/CalcPrecoPrazo?" . $qs);
+            $xml = simplexml_load_file("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?" . $qs);
 
             $result = $xml->Servicos->cServico;
 
@@ -243,20 +241,18 @@ class Cart extends Model
 
             }
 
-            $this->setnrdays($result->PrazoEntrega);
-            $this->setvlfreight(Cart::formatValueToDecimal($result->Valor));
-            $this->setdeszipcode($nrzipcode);
+            //$this->setnrdays($result->PrazoEntrega);
+            //$this->setvlfreight(Cart::formatValueToDecimal($result->Valor));
+            //$this->setdeszipcode($nrzipcode);
 */
-            $v_prazoEntrega = 1;
-            $v_valor = '15,00';
-            $v_zipcode= '99050130';
-            $this->setnrdays($v_prazoEntrega);
-            $this->setvlfreight(Cart::formatValueToDecimal($v_valor));
-            $this->setdeszipcode($v_zipcode);
-                        
+            $this->setnrdays('10');
+            $this->setvlfreight(Cart::formatValueToDecimal('15,00'));
+            $this->setdeszipcode('99050130');
+
             $this->save();
 
-//            return $result;
+            //return $result;
+            return;
 
         } else {
 
@@ -302,9 +298,13 @@ class Cart extends Model
 
         if ($this->getdeszipcode() != '') {
 
-            $this->setFreight($this->getdeszipcode());
+            $this->setFreight('99050130');
 
         }
+        else {
+           $this->setFreight('99050130');
+        }
+        
 
     }
 
@@ -314,6 +314,7 @@ class Cart extends Model
         $this->getCalculateTotal();
 
         return parent::getValues();
+
 
     }
 
@@ -325,8 +326,9 @@ class Cart extends Model
         $totals = $this->getProductsTotals();
 
         $this->setvlsubtotal($totals['vlprice']);
-        $this->setvltotal($totals['vlprice'] + (float) $this->getvlfreight());
+        $this->setvltotal($totals['vlprice'] + (float) ('15,00'));
 
 
     }
+
 }
