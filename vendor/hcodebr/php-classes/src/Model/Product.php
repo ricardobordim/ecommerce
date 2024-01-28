@@ -171,8 +171,7 @@ class Product extends Model
 
         $results = $sql->select("
 			SELECT SQL_CALC_FOUND_ROWS *
-			FROM tb_categories
-			ORDER BY descategory
+			FROM tb_products order by desproduct
 			LIMIT $start, $itemsPerPage;
 		");
 
@@ -195,9 +194,9 @@ class Product extends Model
 
         $results = $sql->select("
 			SELECT SQL_CALC_FOUND_ROWS *
-			FROM tb_categories
-			WHERE descategory LIKE :search
-			ORDER BY descategory
+			FROM tb_products 
+			WHERE desproduct LIKE :search
+			order by desproduct
 			LIMIT $start, $itemsPerPage;
 		", [
             ':search' => '%' . $search . '%',
