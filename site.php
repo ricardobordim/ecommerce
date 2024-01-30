@@ -243,6 +243,9 @@ $app->post("/checkout", function () {
     $_POST['idperson'] = $user->getidperson();
 
     $address->setData($_POST);
+    
+    //var_dump('Primeiro Post' , $_POST);
+    //exit;
 
 
     $address->save();
@@ -265,13 +268,14 @@ $app->post("/checkout", function () {
 		
     ]);
 
-/*	var_dump(
+	/*var_dump(
 		' idcart =>', $cart->getidcart(),
         ' idaddress =>', $address->getidaddress(),
         ' iduser =>', $user->getiduser(),
         ' idstatus =>', OrderStatus::EM_ABERTO,
         ' vltotal =>', $cart->getvltotal()
 	);
+    exit;
 */
     $order->save();
 /*

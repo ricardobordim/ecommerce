@@ -56,6 +56,7 @@ class Sql {
 
 		$stmt = $this->conn->prepare($rawQuery);
 
+
 		$this->setParams($stmt, $params);
 
 		$stmt->execute();
